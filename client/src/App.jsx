@@ -1,3 +1,4 @@
+// Importing all pages to the home route
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import SingIn from "./pages/SingIn";
@@ -6,6 +7,7 @@ import About from "./pages/About";
 import Profile from "./pages/Profile";
 import Header from "./components/Header";
 
+// Create the template to include all pages and the header to all pages
 export default function App() {
   return  <BrowserRouter>
   <Header />

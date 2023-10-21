@@ -1,6 +1,10 @@
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+// Set up the layout for the header for all pages
+// Create a search bar
+// Create buttons for "Home", "About", "Sign In", and linking the buttons to the pages
+
 export default function Header() {
   return (
     <header className = "bg-slate-200 shadow-md">

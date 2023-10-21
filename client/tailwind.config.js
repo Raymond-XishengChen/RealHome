@@ -1,3 +1,4 @@
+// Setups for Tailwind to connect to all files in the application
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [

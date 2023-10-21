@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
+// Use dotenv to hide password
+// Create connections to database and log status of success or failure
 mongoose.connect(process.env.MONGOKEY).then( () => {
     console.log("Connected to Mongo!");
 }).catch((err) => {
