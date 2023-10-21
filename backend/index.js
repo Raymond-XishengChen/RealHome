@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.routes.js";
+import authRouter from "./routes/auth.route.js"
 dotenv.config();
 
 // Use dotenv to hide password
@@ -13,9 +14,24 @@ mongoose.connect(process.env.MONGOKEY).then( () => {
 })
 
 const app = express();
+app.use(express.json());
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000!!!");
 });
 
-app.use("/backend/user", userRouter);
+app.use("/api/user", userRouter);
+app.use("/api/auth", authRouter);
+
+// Use middleware to handle error messages
+app.use((err, req, res, next) => {
+    // Grab the error code or use 500 as Internal Server Error
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    // Return the error message that contains success status, error code and the error message
+    return res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message,
+    });
+});
