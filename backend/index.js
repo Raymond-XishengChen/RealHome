@@ -13,6 +13,7 @@ mongoose.connect(process.env.MONGOKEY).then( () => {
     console.log(err);
 })
 
+// Create the app for express, and allow server to pass JSON messages
 const app = express();
 app.use(express.json());
 
