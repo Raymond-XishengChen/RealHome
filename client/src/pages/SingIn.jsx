@@ -1,18 +1,26 @@
 // Sign up page for new users
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+// Use the hook from react-redux to get the sign in status and functions
+import { useDispatch, useSelector } from "react-redux";
+import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
 
 
 export default function SignIn() {
 
   const [formData, setFormData] =useState({});
   // Set state if there's an error occurs, null at the beginning by default
-  const [error, setError] = useState (null);
-  // Set state to loading when user information are not ready to be registered
-  // Set to not loading at the beginning by default
-  const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState (null);
+  // // Set state to loading when user information are not ready to be registered
+  // // Set to not loading at the beginning by default
+  // const [loading, setLoading] = useState(false);
+
+  // Instead of using loading and error state, introduce states from redux
+  const { loading, error } = useSelector((state) => state.user);
   // Define nevigate for when signing up successfully, redirect user to sign in page
   const navigate = useNavigate();
+  // Initialise useDispatch from redux
+  const dispatch = useDispatch();
   // Set up onclick event when user enter their user information
   // for the fields that's already filled, we don't want to lose track on them
   const handleChange = (e) =>{
@@ -29,8 +37,8 @@ export default function SignIn() {
     e.preventDefault();
 
     try {
-      // At start of the sign up page, loading is true so that the sign up button is not enabled, until all user info is ready
-      setLoading(true);
+      // At start of the sign up page, set state to sign in start
+      dispatch(signInStart());
       // Create a fetch api call for "sign up", with POST method and JSON type message by stringifying the input data
       const res = await fetch("/api/auth/signin", {
         method: "POST",
@@ -43,19 +51,18 @@ export default function SignIn() {
       // In the backend index.js, a middleware for error handling, checks if the status is success of fail
       // If failed, display the error message and change loading status
       if (data.success === false){
-        setLoading(false);
-        setError(data.message);
+        // Set state to sign in fail and send error message
+        dispatch(signInFailure(data.message));
         return;
       }
       // If all infomation are checked and all ready to go
-      // Reset the loading state and no error is displayed
-      setLoading(false);
-      setError(null);
+      // Set state to sign in success and return the user data
+      dispatch(signInSuccess(data));
       // Navigate to sign in page if user is signed up successfully
       navigate("/");
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      // Set state to sign in fail and return the error message
+      dispatch(signInFailure(error.message));
     }
   }
   console.log(formData);
