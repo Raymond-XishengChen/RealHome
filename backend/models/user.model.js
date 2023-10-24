@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    avatar: {
+        type: String,
+        default:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLWO_H-9BZRJ1tpCNYmAJxw1m4wI73LuB6iw&usqp=CAU",
     }
 }, { timestamps : true } );
 

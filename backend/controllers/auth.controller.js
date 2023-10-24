@@ -56,3 +56,30 @@ export const signin = async (req, res, next) => {
         next(error);
     }
 }
+
+export const google = async (req, res, next) => {
+    try {
+        const user = await User.findOne({email: req.body.email})
+        if(user){
+        //     // Use JSON Web Token to create a token for checking if they are authenticated
+        // // Use the unique ID created by Mongodb as a unique key
+        // // Adding a secret key to sign the JWT.
+        // const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
+        // // Since it will return the encrypted password when a user tries to log in
+        // // Deconstructing the user's information is required to avoid returning the password of the user account
+        // // Where the password is under "_doc"
+        // const { password: hidePassword, ...userInfomation } = validUser._doc;
+        // // Create a cookie with an access token, expires in 2 hours
+        // res
+        //     .cookie("access_token", token, { httpOnly: true})
+        //     .status(200)
+        //     .json(userInfomation);
+        } else {
+            // Since using google account to log in doesn't need a password like the setups in the user model
+            // For new users, grabbing the password from the google account and encrypting it is required
+
+        }   
+    } catch (error) {
+        next(error)
+    }
+}

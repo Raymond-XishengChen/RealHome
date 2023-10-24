@@ -1,6 +1,7 @@
 // Sign up page for new users
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Oauth from "../components/Oauth";
 
 
 export default function SignUp() {
@@ -73,7 +74,7 @@ export default function SignUp() {
         {/* When loading is false, button text shows "Sign Up" and button is enabled for signing up */}
         <button className="bg-green-700 text-white p-3 rounded-lg hover:opacity-90" disabled={loading}>
           {loading ? "Loading..." : "SIGN UP"}</button>
-
+        <Oauth></Oauth>
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account already?</p>

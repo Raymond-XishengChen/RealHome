@@ -1,5 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+// import { useSelector } from "react-redux";
 
 // Set up the layout for the header for all pages
 // Create a search bar

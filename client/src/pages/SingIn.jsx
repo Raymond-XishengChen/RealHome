@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 // Use the hook from react-redux to get the sign in status and functions
 import { useDispatch, useSelector } from "react-redux";
 import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice";
+import Oauth from "../components/Oauth";
 
 
 export default function SignIn() {
@@ -79,8 +80,8 @@ export default function SignIn() {
         {/* When loading is true, button text is "Loading" and button is disabled */}
         {/* When loading is false, button text shows "Sign Up" and button is enabled for signing up */}
         <button className="bg-green-700 text-white p-3 rounded-lg hover:opacity-90" disabled={loading}>
-          {loading ? "Loading..." : "SIGN IN"}</button>
-
+          {loading ? "Loading..." : "SIGN IN"} </button>
+        <Oauth></Oauth>
       </form>
       <div className="flex gap-2 mt-5">
         <p>Dont have an account yet?</p>
