@@ -7,8 +7,9 @@ import { useSelector } from "react-redux";
 // Create buttons for "Home", "About", "Sign In", and linking the buttons to the pages
 
 export default function Header() {
+    // Check if user it's logged in, if it's logged in, show profile page
     const { currentUser } = useSelector (state => state.user);
-  return (
+    return (
     <header className = "bg-gray-200 shadow-md">
         <div className = "flex justify-between items-center max-w-6xl mx-auto p-3">
             <Link to = "/">
@@ -29,6 +30,7 @@ export default function Header() {
                     <li className="hidden sm:inline text-gray-700 hover:underline">About</li>
                 </Link>
                 <Link to = "/profile">
+                    {/* If user is logged in, show profile picture, otherwise display sign in option */}
                     { currentUser ? (
                         <img className="h-7 w-7 rounded" src={currentUser.avatar} />
                     ): ( <li className="sm:inline text-gray-700 hover:underline">Sign In</li> )}
