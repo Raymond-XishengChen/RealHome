@@ -20,11 +20,11 @@ export default function Profile() {
   const [formData, setFormData] = useState({})
 
   console.log(file);
-
   useEffect(() => {
     if(file){
       handleFileUpload(file);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[file]);
 
   // Define a function to handle the upload image actions
