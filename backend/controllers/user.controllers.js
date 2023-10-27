@@ -9,8 +9,9 @@ export const test = (req, res) => {
 }
 
 export const updateUser = async (req, res, next) => {
+    // Check user id if it matches
     if(req.user.id !== req.params.id){
-        return next (errorHandler(401, "It's noy your account!"));
+        return next (errorHandler(401, "It's not your account!"));
     }
     try {
         if(req.body.password){
@@ -30,6 +31,19 @@ export const updateUser = async (req, res, next) => {
         },{new: true})
         const {password, ...otherInfo} = updateUser._doc;
         res.status(200).json(otherInfo);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const deleteUser = async (req, res, next) => {
+    // Check user id if it matches
+    if(req.user.id !== req.params.id){
+        return next (errorHandler(401, "It's not your account!"));
+    }
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.status(200).json("Account has been deleted!")
     } catch (error) {
         next(error);
     }
