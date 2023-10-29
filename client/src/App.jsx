@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import CreateListing from "./pages/CreateListing"
 import Header from "./components/Header";
 import Signined from "./components/Signined";
+import UpdateListing from "./pages/UpdateListing";
 
 // Create the template to include all pages and the header to all pages
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
     <Route element = {<Signined />}>
       <Route path = "/profile" element = { <Profile />} />
       <Route path = "/create-listing" element = { <CreateListing />} />
+      <Route path = "/update-listing/:listingId" element = { <UpdateListing />} />
 
     </Route>
   </Routes>
