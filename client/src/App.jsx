@@ -9,6 +9,7 @@ import CreateListing from "./pages/CreateListing"
 import Header from "./components/Header";
 import Signined from "./components/Signined";
 import UpdateListing from "./pages/UpdateListing";
+import Listing from "./pages/Listing";
 
 // Create the template to include all pages and the header to all pages
 export default function App() {
@@ -19,6 +20,8 @@ export default function App() {
     <Route path = "/sign-in" element = { <SingIn />} />
     <Route path = "/sign-up" element = { <SignUp />} />
     <Route path = "/about" element = { <About />} />
+    <Route path = "/listing/:listingId" element = { <Listing />} />
+
     {/* Only when user is logged in, show the profile page, making the profile page the children */}
     <Route element = {<Signined />}>
       <Route path = "/profile" element = { <Profile />} />
