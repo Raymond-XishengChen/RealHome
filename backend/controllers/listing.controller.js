@@ -1,4 +1,5 @@
 import Listing from "../models/listing.model.js";
+import { errorHandler } from "../utils/error.js";
 
 export const createListing = async (req, res, next) =>{
     try {
@@ -8,3 +9,24 @@ export const createListing = async (req, res, next) =>{
         next (error);
     }
 }
+
+export const deleteListing = async (req, res, next) => {
+    const listing = await Listing.findById(req.params.id);
+    // Check if listing exist
+    if(!listing) {
+        return next(errorHandler(404, "Listing not found!"));
+    }
+    // Check if user is the owner of the listing by comparing the request id to the user reference
+    if (req.user.id !== listing.userReference) {
+        return next (errorHandler(401, "The listing it's not under your account!"));
+    }
+
+    // If the listing exist and the user is the owner of the listing
+    try {
+        await Listing.findByIdAndDelete(req.params.id);
+        res.status(200).json("Listing is deleted successfully!")
+    } catch (error) {
+        next(error);
+    }
+}
+

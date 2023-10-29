@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import Listings from "../models/listing.model.js";
 import { errorHandler } from "../utils/error.js";
 import bcryptjs from "bcryptjs";
 
@@ -46,5 +47,18 @@ export const deleteUser = async (req, res, next) => {
         res.status(200).json("Account has been deleted!")
     } catch (error) {
         next(error);
+    }
+}
+
+export const getUserListings = async (req, res, next) => {
+    if(req.user.id === req.params.id) {
+        try {
+            const listings = await Listings.find({ userReference: req.params.id });
+            res.status(200).json(listings);
+        } catch (error) {
+            next(error);
+        }
+    } else {
+        return next(errorHandler(401, "It's not your account!"));
     }
 }

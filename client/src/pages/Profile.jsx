@@ -20,6 +20,10 @@ export default function Profile() {
   const [uploadError, setUploadError] = useState(null);
   // Define a variable to include the upload file URl, which is an empty object by default
   const [formData, setFormData] = useState({})
+  // Define a variable for display listings error
+  const [displayListingsError, setDisplayListingsError] = useState(null);
+  // Define a variable for user listings array, empty by default
+  const [userListings, setUserListings] = useState([]);
   // Initialise useDispatch
   const dispatch = useDispatch();
 
@@ -125,6 +129,38 @@ export default function Profile() {
     }
   }
 
+  const handleDisplayListings = async () => {
+
+    try {
+      setDisplayListingsError(false);
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+      if (data.success === false){
+        setDisplayListingsError(true);
+        return;
+      }
+      setUserListings(data);
+    } catch (error) {
+      setDisplayListingsError(true);
+    }
+  }
+
+  const handleDeleteListing = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: "DELETE"
+      });
+      const data = await res.json();
+      if (data.success === false){
+        return;
+      }
+
+      setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-bold my-7">Profile</h1>
@@ -155,12 +191,45 @@ export default function Profile() {
         <Link to={"/create-listing"} className="bg-yellow-600 text-white p-3 rounded-lg hover:opacity-90 text-center">
           CREATE LISTING
         </Link>
+
+        
       </form>
 
-      <div className="flex justify-between">
+      <button className="bg-slate-700 text-white p-3 rounded-lg hover:opacity-90 mb-4" onClick = {handleDisplayListings} >SHOW LISTINGS</button> 
+        <p>{displayListingsError ? "Error displaying listings" : ""}</p>
+
+
+      {userListings && userListings.length > 0 &&
+            <div className="flex flex-col gap-4 mb-4">
+              <h1 className="text-center text-2xl font-bold">Your Listings</h1>
+            {userListings.map((listing) => (
+              // <h1 className="text-center text-2xl font-bold">YOUR LISTINGS</h1>
+              <div key={listing._id} className="border border-lg p-3 flex justify-between items-center gap-4">
+                <Link to={`/listing/${listing._id}`}>
+                  <img src={listing.imageUrls[0]} className="object-contain w-20 h-20" alt="Listing Cover" />
+                </Link>
+
+                <Link to={`/listing/${listing._id}`}  className="text-slate-600 flex-1 hover:underline truncate">
+                  <p>{listing.name}</p>
+                </Link>
+
+                <div className="flex flex-col items-center">
+                  <button onClick={() => handleDeleteListing(listing._id)} className="text-red-700">DELETE</button>
+                  <button className="text-green-700">EDIT</button>
+                </div>
+
+              </div>
+            ))}
+                    <div className="flex justify-between">
         <span className="text-red-700 cursor-pointer" onClick = {handleDeleteUser}>DELETE ACCOUNT</span>
         <span className="text-red-700 cursor-pointer" onClick={handleSignout}>SIGN OUT</span>
       </div>
+
+            </div>}
+
+
+
+      
     </div>
   )
 }
