@@ -5,11 +5,11 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   // Adding a proxy so that everytime when a request occurs to the "api" route, add the localhost 3000 to the beginning
   server:{
-    port: 3001,
+    port: 3000,
      open:true,
     proxy: {
         "/api": {
-        target: "http://localhost:3000",
+        target: "http://localhost:3001",
         secure: false,
         changeOrigin: true,
       },
