@@ -21,11 +21,12 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-const host = '0.0.0.0';
-const port = process.env.PORT || 3000;
-app.listen(port, host, () => {
-    console.log(`Server started, listening to ${ port }`);
-});
+// const host = '0.0.0.0';
+// const port = process.env.PORT || 3000;
+// app.listen(port, host, () => {
+//     console.log(`Server started, listening to ${ port }`);
+// });
+app.listen(process.env.PORT || 3000);
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
