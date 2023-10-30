@@ -10,7 +10,7 @@ dotenv.config();
 
 // Use dotenv to hide password
 // Create connections to database and log status of success or failure
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/RealHome').then( () => {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/realhome').then( () => {
     console.log("Connected to Mongo!");
 }).catch((err) => {
     console.log(err);
