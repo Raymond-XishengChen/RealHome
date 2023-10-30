@@ -10,7 +10,7 @@ dotenv.config();
 
 // Use dotenv to hide password
 // Create connections to database and log status of success or failure
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/realhome').then( () => {
+mongoose.connect(process.env.MONGODB_URI).then( () => {
     console.log("Connected to Mongo!");
 }).catch((err) => {
     console.log(err);
@@ -25,10 +25,10 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-const host = '0.0.0.0';
-const port = process.env.PORT || 3000;
-app.listen(port, host, () => {
-    console.log(`Server started, listening to ${ port }`);
+// const host = '0.0.0.0';
+// const port = process.env.PORT || 3000;
+app.listen(3000, () => {
+    console.log(`Server started, listening to 3000`);
 });
 
 
