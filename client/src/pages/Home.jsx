@@ -20,7 +20,7 @@ export default function Home() {
     const fetchOffers = async () => {
       try {
         // Use the search function for getting the latest listings with offers
-        const res = await fetch("/api/listing/get?offer=true&limit=4");
+        const res = await fetch("/api/listing/get?offer=true&limit=3");
         const data = await res.json();
         setOffers(data);
       }
@@ -33,7 +33,7 @@ export default function Home() {
     const fetchRents = async () => {
       try {
         // Use the search function for getting the latest renting listings
-        const res = await fetch("/api/listing/get?rent=true&limit=4");
+        const res = await fetch("/api/listing/get?type=rent&limit=3");
         const data = await res.json();
         setRents(data);
       }
@@ -46,7 +46,7 @@ export default function Home() {
     const fetchSales = async () => {
       try {
         // Use the search function for getting the latest selling listings
-        const res = await fetch("/api/listing/get?sale=true&limit=4");
+        const res = await fetch("/api/listing/get?type=sale&limit=3");
         const data = await res.json();
         setSales(data);
       }
@@ -86,7 +86,7 @@ export default function Home() {
         )}
       </Swiper>
 
-      <div className="max-w-6xl mx-auto p-3 flex flex-col gap-8 my-10">
+      <div className="content-center max-w-6xl mx-auto p-3 flex flex-col gap-6 my-10">
       {offers && offers.length > 0 && (
           <div className="">
             <div className="my-3">
@@ -107,7 +107,7 @@ export default function Home() {
               <Link className="text-sm text-blue-800 hover:underline" to={"/search?offer=true"}>Show more offers</Link>
             </div>
             <div className="flex flex-wrap gap-4">
-              {offers.map((listing) => (
+              {rents.map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
             </div>
@@ -120,7 +120,7 @@ export default function Home() {
               <Link className="text-sm text-blue-800 hover:underline" to={"/search?offer=true"}>Show more offers</Link>
             </div>
             <div className="flex flex-wrap gap-4">
-              {offers.map((listing) => (
+              {sales.map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
             </div>

@@ -26,7 +26,7 @@ export default function Profile() {
   const [userListings, setUserListings] = useState([]);
   // Initialise useDispatch
   const dispatch = useDispatch();
-
+  console.log(formData);
   // console.log(file);
   useEffect(() => {
     if(file){
@@ -44,7 +44,7 @@ export default function Profile() {
     const storageReference = ref(storage, fileName);
     // Create the task for uploading and displaying the percentage of the upload process
     const uploadTask = uploadBytesResumable (storageReference, file);
-
+    
     uploadTask.on("state_changed",
       (snapshot) => {
         const progress =
@@ -191,16 +191,16 @@ export default function Profile() {
         <Link to={"/create-listing"} className="bg-yellow-600 text-white p-3 rounded-lg hover:opacity-90 text-center">
           CREATE LISTING
         </Link>
-
+        <button className="text-center bg-slate-700 text-white p-3 rounded-lg hover:opacity-90" onClick = {handleDisplayListings} >SHOW LISTINGS</button> 
+        <p>{displayListingsError ? "Error displaying listings" : ""}</p>
         
       </form>
 
-      <button className="bg-slate-700 text-white p-3 rounded-lg hover:opacity-90 mb-4" onClick = {handleDisplayListings} >SHOW LISTINGS</button> 
-        <p>{displayListingsError ? "Error displaying listings" : ""}</p>
+      
 
 
       {userListings && userListings.length > 0 &&
-            <div className="flex flex-col gap-4 mb-4">
+        <div className="flex flex-col gap-4 mb-4">
               <h1 className="text-center text-2xl font-bold">Your Listings</h1>
             {userListings.map((listing) => (
               // <h1 className="text-center text-2xl font-bold">YOUR LISTINGS</h1>
@@ -222,16 +222,11 @@ export default function Profile() {
 
               </div>
             ))}
-                    <div className="flex justify-between">
-        <span className="text-red-700 cursor-pointer" onClick = {handleDeleteUser}>DELETE ACCOUNT</span>
-        <span className="text-red-700 cursor-pointer" onClick={handleSignout}>SIGN OUT</span>
-      </div>
-
-            </div>}
-
-
-
-      
+        </div>}
+    <div className="flex justify-between">
+    <span className="text-red-700 cursor-pointer" onClick = {handleDeleteUser}>DELETE ACCOUNT</span>
+      <span className="text-red-700 cursor-pointer" onClick={handleSignout}>SIGN OUT</span>
+    </div>
     </div>
   )
 }

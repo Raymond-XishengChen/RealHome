@@ -7,6 +7,7 @@ import { signInSuccess } from "../redux/user/userSlice"
 export default function Oauth() {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
+    // eslint-disable-next-line no-unused-vars
     const handleGoogleClick = async () => {
         try {
             const provider = new GoogleAuthProvider();
@@ -28,7 +29,8 @@ export default function Oauth() {
             console.log("Could not sign in with Google", error);
         }
     }
-    return (
-        <button type="button" onClick={handleGoogleClick} className='bg-red-700 text-white p-3 rounded-lg hover:opacity-90'>CONTINUE WITH GOOGLE</button>
-    )
+    return 
+    // (
+        // <button type="button" onClick={handleGoogleClick} className='bg-red-700 text-white p-3 rounded-lg hover:opacity-90'>CONTINUE WITH GOOGLE</button>
+    // )
 }
