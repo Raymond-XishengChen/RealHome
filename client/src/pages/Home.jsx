@@ -71,7 +71,7 @@ export default function Home() {
         <div className="font-bold text-xl text-gray-400">Discover a world of possibilities as you explore our meticulously curated listings, 
           showcasing a diverse range of properties to suit every lifestyle.</div>
 
-          <Link to={"/search"} className="text-xs font-bold text-blue-500 sm:text-sm">
+          <Link to={"/search"} className="text-base font-bold text-blue-500 sm:text-lg">
             Let's start exploring!
           </Link>
       </div>
@@ -81,7 +81,7 @@ export default function Home() {
           // eslint-disable-next-line react/jsx-key
           <SwiperSlide>
             <div style={{background: `url(${listing.imageUrls[0]}) no-repeat center`, backgroundSize: "cover",}} 
-            className="h-[500px]" key={listing._id}></div>
+            className="h-[800px]" key={listing._id}></div>
           </SwiperSlide>)
         )}
       </Swiper>
